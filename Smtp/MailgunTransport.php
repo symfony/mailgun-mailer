@@ -13,6 +13,7 @@ namespace Symfony\Component\Mailer\Bridge\Mailgun\Smtp;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Mailer\Bridge\Mailgun\Mailgun;
 use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
 
 /**
@@ -22,9 +23,9 @@ use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
  */
 class MailgunTransport extends EsmtpTransport
 {
-    public function __construct(string $username, string $password, EventDispatcherInterface $dispatcher = null, LoggerInterface $logger = null)
+    public function __construct(string $username, string $password, string $region = Mailgun::REGION_US, EventDispatcherInterface $dispatcher = null, LoggerInterface $logger = null)
     {
-        parent::__construct('smtp.mailgun.org', 465, 'ssl', null, $dispatcher, $logger);
+        parent::__construct(Mailgun::resolveSmtpDomainByRegion($region), 465, 'ssl', null, $dispatcher, $logger);
 
         $this->setUsername($username);
         $this->setPassword($password);

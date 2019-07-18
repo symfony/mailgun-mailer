@@ -9,10 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Mailer\Bridge\Mailgun\Tests\Factory;
+namespace Symfony\Component\Mailer\Bridge\Mailgun\Tests\Transport;
 
-use Symfony\Component\Mailer\Bridge\Mailgun;
-use Symfony\Component\Mailer\Bridge\Mailgun\Factory\MailgunTransportFactory;
+use Symfony\Component\Mailer\Bridge\Mailgun\Transport\MailgunApiTransport;
+use Symfony\Component\Mailer\Bridge\Mailgun\Transport\MailgunHttpTransport;
+use Symfony\Component\Mailer\Bridge\Mailgun\Transport\MailgunSmtpTransport;
+use Symfony\Component\Mailer\Bridge\Mailgun\Transport\MailgunTransportFactory;
 use Symfony\Component\Mailer\Tests\TransportFactoryTestCase;
 use Symfony\Component\Mailer\Transport\Dsn;
 use Symfony\Component\Mailer\Transport\TransportFactoryInterface;
@@ -55,22 +57,22 @@ class MailgunTransportFactoryTest extends TransportFactoryTestCase
 
         yield [
             new Dsn('api', 'mailgun', self::USER, self::PASSWORD),
-            new Mailgun\Http\Api\MailgunTransport(self::USER, self::PASSWORD, null, $client, $dispatcher, $logger),
+            new MailgunApiTransport(self::USER, self::PASSWORD, null, $client, $dispatcher, $logger),
         ];
 
         yield [
             new Dsn('api', 'mailgun', self::USER, self::PASSWORD, null, ['region' => 'eu']),
-            new Mailgun\Http\Api\MailgunTransport(self::USER, self::PASSWORD, 'eu', $client, $dispatcher, $logger),
+            new MailgunApiTransport(self::USER, self::PASSWORD, 'eu', $client, $dispatcher, $logger),
         ];
 
         yield [
             new Dsn('http', 'mailgun', self::USER, self::PASSWORD),
-            new Mailgun\Http\MailgunTransport(self::USER, self::PASSWORD, null, $client, $dispatcher, $logger),
+            new MailgunHttpTransport(self::USER, self::PASSWORD, null, $client, $dispatcher, $logger),
         ];
 
         yield [
             new Dsn('smtp', 'mailgun', self::USER, self::PASSWORD),
-            new Mailgun\Smtp\MailgunTransport(self::USER, self::PASSWORD, null, $dispatcher, $logger),
+            new MailgunSmtpTransport(self::USER, self::PASSWORD, null, $dispatcher, $logger),
         ];
     }
 

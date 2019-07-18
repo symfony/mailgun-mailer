@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Mailer\Bridge\Mailgun\Smtp;
+namespace Symfony\Component\Mailer\Bridge\Mailgun\Transport;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
@@ -18,7 +18,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 /**
  * @author Kevin Verschaeve
  */
-class MailgunTransport extends EsmtpTransport
+class MailgunSmtpTransport extends EsmtpTransport
 {
     public function __construct(string $username, string $password, string $region = null, EventDispatcherInterface $dispatcher = null, LoggerInterface $logger = null)
     {

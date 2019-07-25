@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Mailer\Bridge\Mailgun\Http;
+namespace Symfony\Component\Mailer\Bridge\Mailgun\Transport;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mailer\Exception\HttpTransportException;
 use Symfony\Component\Mailer\SentMessage;
-use Symfony\Component\Mailer\Transport\Http\AbstractHttpTransport;
+use Symfony\Component\Mailer\Transport\AbstractHttpTransport;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -24,7 +24,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 /**
  * @author Kevin Verschaeve
  */
-class MailgunTransport extends AbstractHttpTransport
+class MailgunHttpTransport extends AbstractHttpTransport
 {
     private const ENDPOINT = 'https://api.%region_dot%mailgun.net/v3/%domain%/messages.mime';
     private $key;

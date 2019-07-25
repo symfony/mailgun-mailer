@@ -9,9 +9,8 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Mailer\Bridge\Mailgun\Factory;
+namespace Symfony\Component\Mailer\Bridge\Mailgun\Transport;
 
-use Symfony\Component\Mailer\Bridge\Mailgun;
 use Symfony\Component\Mailer\Exception\UnsupportedSchemeException;
 use Symfony\Component\Mailer\Transport\AbstractTransportFactory;
 use Symfony\Component\Mailer\Transport\Dsn;
@@ -30,15 +29,15 @@ final class MailgunTransportFactory extends AbstractTransportFactory
         $region = $dsn->getOption('region');
 
         if ('api' === $scheme) {
-            return new Mailgun\Http\Api\MailgunTransport($user, $password, $region, $this->client, $this->dispatcher, $this->logger);
+            return new MailgunApiTransport($user, $password, $region, $this->client, $this->dispatcher, $this->logger);
         }
 
         if ('http' === $scheme) {
-            return new Mailgun\Http\MailgunTransport($user, $password, $region, $this->client, $this->dispatcher, $this->logger);
+            return new MailgunHttpTransport($user, $password, $region, $this->client, $this->dispatcher, $this->logger);
         }
 
         if ('smtp' === $scheme) {
-            return new Mailgun\Smtp\MailgunTransport($user, $password, $region, $this->dispatcher, $this->logger);
+            return new MailgunSmtpTransport($user, $password, $region, $this->dispatcher, $this->logger);
         }
 
         throw new UnsupportedSchemeException($dsn, ['api', 'http', 'smtp']);

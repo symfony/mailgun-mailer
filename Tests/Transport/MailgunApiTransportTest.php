@@ -98,9 +98,6 @@ class MailgunApiTransportTest extends TestCase
         $this->assertEquals('amp-html-value', $payload['amp-html']);
     }
 
-    /**
-     * @legacy
-     */
     public function testPrefixHeaderWithH()
     {
         $email = new Email();
